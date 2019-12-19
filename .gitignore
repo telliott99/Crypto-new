@@ -1,0 +1,5 @@
+.DSStore
+.DS_Store
+.pyc
+refs/*
+_build/*
