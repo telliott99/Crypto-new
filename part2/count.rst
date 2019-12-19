@@ -4,9 +4,9 @@
 Derivation of Euler's totient
 #############################
 
-Euler's totient function is symbolized by ``φ(n)``.  
+Euler's totient function is symbolized by ``phi(n)``.  
 
-It gives the count of how many numbers in the set ``1..n-1`` have a gcd with ``n`` equal to ``1`` (thus, it includes ``1``).  For a prime number ``p``, ``φ((p) = p-1``.
+It gives the count of how many numbers in the set ``1..n-1`` have a gcd with ``n`` equal to ``1`` (thus, it includes ``1``).  For a prime number ``p``, ``phi((p) = p-1``.
 
 We will sketch a proof to show that if ``n`` has a prime factorization
 
@@ -18,7 +18,7 @@ then
 
 .. math::
     
-    φ(n) = n(p_1 - 1/p_1)(p_2 - 1/p_2) \ \dots
+    phi(n) = n(p_1 - 1/p_1)(p_2 - 1/p_2) \ \dots
 
 I found a nice write-up of this here:
 
@@ -51,7 +51,7 @@ The set we seek is ``{ 1, 7, 11, 13, 17, 19, 23, 29 }``.
 These are the numbers that are not included in the Venn circles:
 
 .. image:: /_static/fermat-30.png
-   :scale: 100 %
+   :scale: 75 %
 
 The prime factors of ``30`` are ``2``, ``3`` and ``5``.  
 
@@ -97,13 +97,15 @@ There is a famous theorem in set theory that says:
 
 ::
 
-    ~(A U B U C) = ~A ⋂ ~B ⋂ ~C
+    ~(A U B U C) = ~A ^ ~B ^ ~C
 
 so we write that we want
 
 ::
 
-    sizeof ~A ⋂ ~B ⋂ ~C
+    sizeof ~A ^ ~B ^ ~C
+
+(where ``^`` is an ASCII symbol close enough to "intersection.")
     
 -----------
 Probability
@@ -119,20 +121,20 @@ Thus
 
 ::
 
-    φ(30) = sizeof (~A ⋂ ~B ⋂ ~C)
+    phi(30) = sizeof (~A ^ ~B ^ ~C)
     = 30·(1 - 1/2)(1 - 1/3)(1 - 1/5)
     
 And generalizing
 
 ::
 
-    φ(n) = n·(1 - 1/p_1)(1 - 1/p_2) \dots
+    phi(n) = n·(1 - 1/p_1)(1 - 1/p_2) \dots
     
 which is what we needed to prove.  This can be rewritten as
 
 ::
 
-    φ(n) = (p_1 - 1)(p_2 - 1) \dots
+    phi(n) = (p_1 - 1)(p_2 - 1) \dots
 
     
 

@@ -4,21 +4,21 @@
 RSA calculations
 ################
 
-In the theory of RSA encryption and decryption, we choose two primes *p* and *q* and compute their product *n = pq*, as well as Euler’s totient *φ(n) = (p-1)(q-1)*.
+In the theory of RSA encryption and decryption, we choose two primes *p* and *q* and compute their product *n = pq*, as well as Euler’s totient *phi(n) = (p-1)(q-1)*.
 
-We pick a public exponent *e*, which is co-prime to *φ(n)*, and the usual choice is ``65537 = 0x101 = 0b1 00000000 00000001``.
+We pick a public exponent *e*, which is co-prime to *phi(n)*, and the usual choice is ``65537 = 0x101 = 0b1 00000000 00000001``.
 
 We must also find *d* such that it is the multiplicative modular inverse of *e*:
 
 .. math::
 
-    d = e^{-1} \ mod \ φ(n)
+    d = e^{-1} \ mod \ phi(n)
 
 This is done using the extended Euclidean algorithm for gcd (greatest common divisor).  The above equation is equivalent to:
 
 .. math::
 
-    e \cdot d = 1 \ mod \ φ(n)
+    e \cdot d = 1 \ mod \ phi(n)
 
 With these definitions, it can be shown that
 
@@ -28,7 +28,7 @@ With these definitions, it can be shown that
 
 This is the basis of asymmetric encryption and decryption.
 
-It makes life easy if *e* has very few binary ones, which explains the choice we made above.  However, *d* is determined from *e* and *φ(n)*, and computing
+It makes life easy if *e* has very few binary ones, which explains the choice we made above.  However, *d* is determined from *e* and *phi(n)*, and computing
 
 .. math::
 
@@ -44,7 +44,7 @@ The Chinese Remainder Theorem tells us that for each ``x`` in the range ``[1..n-
 
 Some smart guy figured out that, not only is the result uniquely identified by that tuple, but it can be calculated from it.
 
-So, just as with ``φ(n)``, we calculate the multiplicative modular inverse of *e* with *(p-1)* and *(q-1)*.  These are called 
+So, just as with ``phi(n)``, we calculate the multiplicative modular inverse of *e* with *(p-1)* and *(q-1)*.  These are called 
 
 .. math::
 
@@ -107,7 +107,7 @@ Suppose
     p = 137
     q = 131
     n = 17947
-    φ = 16680
+    phi = 16680
     e = 3
 
 Compute *d* using ``mod.py`` (and then just check it):

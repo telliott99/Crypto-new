@@ -7,7 +7,7 @@ CRT
 The **Chinese** Remainder Theorem.
 
 .. image:: /_static/shapes.png
-   :scale: 80 %
+   :scale: 60 %
 
 In the picture above, we have 5 distinct shapes, 3 different colors, and 2 states, either filled or empty.
 

@@ -56,11 +56,11 @@ A note on notation:  standard mathematics uses these two symbols for multiplicat
 
 We'll be using Python a lot, so we'll use the Python notation.  Multiplication is ``a * b`` and exponentiation is ``a ** e``.  The remainder from division, or modulus operator, is ``a % b``.
 
-**Phi (φ)**
+**Phi**
 
-We're going to find three other numbers in order to use this method, one is called *φ* or sometimes  *φ(n)* since it depends on the numbers *p* and *q*.  We will use phi to denote *φ*.
+We're going to find three other numbers in order to use this method, one is called *phi* or sometimes  *phi(n)* since it depends on the numbers *p* and *q*.  We wouldn't mind using the Greek letter phi, but it's not part of ASCII and the LaTeX to PDF typesetter doesn't support it.
 
-The other two are called the exponents.  The *exponent of the private key*, *d*, depends on phi.  
+The other two values are called the exponents.  The *exponent of the private key*, *d*, depends on phi.  
 
 We also need to choose *e*, the *exponent of the public key*.
 
@@ -163,9 +163,9 @@ The private key is (*d*, *n*), although just the *d* part is actually secret. Fi
 
 What this means is that we want *d* such that
 
-``d × e = 1 (mod φ(n))``
+``d × e = 1 (mod phi(n))``
 
-Substituting the known values for *e* and *φ(n)*
+Substituting the known values for *e* and *phi(n)*
 
 ``d × 65537 = 1 (mod 944871834912248880)``
 

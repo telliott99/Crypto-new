@@ -3,7 +3,7 @@
 #############
 Why RSA works
 #############
-
+phi
 I found a nice write-up of this here:
 
 http://www.claysturner.com/dsp/totient.pdf
@@ -14,7 +14,7 @@ We'll attempt a high-level sketch of how/why RSA works here.  At some point in t
 Euler's Totient
 ---------------
 
-Euler's totient function is symbolized by ``φ(n)``.  It gives the count of how many numbers in the set
+Euler's totient function is symbolized by ``phi(n)``.  It gives the count of how many numbers in the set
 
 .. math::
 
@@ -30,7 +30,7 @@ share no common factors with ``n`` other than ``1``, i.e. that have a gcd with `
 
 If ``n`` is prime, this is easy.  
 
-For a prime ``p``, ``φ(p) = p - 1``.  
+For a prime ``p``, ``phi(p) = p - 1``.  
 
 The only number that evenly divides ``p`` is ``1`` (and ``1`` always has a gcd of ``1`` with another integer), so the count of numbers less than ``p`` that have gcd ``= 1`` is ``p - 1``.
 
@@ -46,33 +46,33 @@ then
 
 .. math::
 
-    φ(n) = φ(p_1) \cdot φ(p_2) \cdot φ(p_3) \dots
+    phi(n) = phi(p_1) \cdot phi(p_2) \cdot phi(p_3) \dots
 
 This is true not just for primes, but for any two coprime factors of ``n``.  This explains why we were able to write (in deriving an RSA key), that since ``n = p * q``:
 
 .. math::
 
-    φ(n) = (p-1)(q-1)
+    phi(n) = (p-1)(q-1)
 
 So if
 
 .. math::
 
-    φ(n) = φ(p_1) \ φ(p_2) \ φ(p_3) \dots
+    phi(n) = phi(p_1) \ phi(p_2) \ phi(p_3) \dots
     
 We can multiply and divide by the prime product equal to ``n`` and obtain
 
 .. math::
 
-    φ(n) = \frac{p_1 \ p_2 \dots}{p_1 \ p_2 \dots} (p_1 - 1) \ (p_2 - 1) \ \dots
+    phi(n) = \frac{p_1 \ p_2 \dots}{p_1 \ p_2 \dots} (p_1 - 1) \ (p_2 - 1) \ \dots
     
-    φ(n) = n(p_1 - 1/p_1)(p_2 - 1/p_2) \ \dots
+    phi(n) = n(p_1 - 1/p_1)(p_2 - 1/p_2) \ \dots
     
 In the write-up he sketches a proof of the last line above, and you can follow it backward to what we were given:
 
 .. math::
 
-    φ(n) = φ(p_1) \cdot φ(p_2) \cdot φ(p_3) \dots
+    phi(n) = phi(p_1) \cdot phi(p_2) \cdot phi(p_3) \dots
 
 -----------------------
 Fermat's Little Theorem
@@ -96,7 +96,7 @@ Euler proved this theorem (Fermat did not) and he extended it by showing that it
 
 .. math::
 
-    a^{φ(n)} = 1 \ (mod \ n)
+    a^{phi(n)} = 1 \ (mod \ n)
 
 --------
 Our goal
@@ -114,29 +114,29 @@ Go back to Euler's extension of Fermat's little theorem (substituting ``m`` for 
 
 .. math::
 
-    m^{φ(n)} = 1 \ (mod \ n)
+    m^{phi(n)} = 1 \ (mod \ n)
     
 Raise to the power ``k``:
 
 .. math::
 
-    m^{k \cdot φ(n)} = 1 \ (mod \ n)
+    m^{k \cdot phi(n)} = 1 \ (mod \ n)
 
 .. math::
 
-    m^{k \cdot φ(n) + 1} = m \ (mod \ n)
+    m^{k \cdot phi(n) + 1} = m \ (mod \ n)
 
 So, we see that it will work to find
 
 .. math::
 
-    e \cdot d := k \cdot φ(n) + 1
+    e \cdot d := k \cdot phi(n) + 1
 
 And thus
 
 .. math::
 
-    e \cdot d := 1 \ mod \ φ(n)
+    e \cdot d := 1 \ mod \ phi(n)
 
 And that's why it works.
 

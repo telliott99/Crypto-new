@@ -53,6 +53,11 @@ I got ``putty`` from Homebrew.
     puttygen kf.openssh -O private-openssh -o kf.pkcs1
     -----BEGIN RSA PRIVATE KEY----
 
+::
+
+    alias look="head -n 1"
+    look 
+
 ---------------
 PKCS1 to/from 8
 ---------------
