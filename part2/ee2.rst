@@ -1,5 +1,3 @@
-.. _part2/ee2:
-
 ###################
 Extended EA in code
 ###################
@@ -19,7 +17,7 @@ If the inverse does not exist, this function will never return.
             n += 1
         return n
 
-The inverse  exists if and only if the greatest common divisor is ``1``.  In the case of arithmetic mod ``60``, the integer ``6`` does *not* have a multiplicative inverse.  That's because
+The inverse  exists if and only if the greatest common divisor is ``1``.  In the case of arithmetic ``% 60``, the integer ``6`` does *not* have a multiplicative inverse.  That's because
 
 .. code-block:: python
 
@@ -63,33 +61,34 @@ Backward code
 
 With data from a run for ``a = 231`` and ``b = 130``:
 
-::
+.. code-block:: python
 
-    101 = 231 - (1)130
-     29 = 130 - (1)101
-     14 = 101 - (3)29
-      1 =  29 - (2)14
-      0 =  14 - (1)14
+    101 = 231 - (1) * 130
+     29 = 130 - (1) * 101
+     14 = 101 - (3) * 29
+      1 =  29 - (2) * 14
+      0 =  14 - (1) * 14
 
 Consider this step:
 
-::
+.. code-block:: python
 
-    1 = 29 + (-2)14    
-    1 = 29 + (-2)[101 - 3(29)]
-    1 = (-2)101 + (7)29
+    1 = 29 + (-2) * 14    
+    1 = 29 + (-2) * [101 - (3) * 29]
+    1 = (-2) * 101 + (7) * 29
 
 We need two variables, call them ``x`` and ``y``.
 
 The data from the previous round is ``x = 1`` (the coefficient of ``29``), and ``y = -2`` (the coefficient of ``14``).
 
-For the update, we need the new value of ``q``, the quotient in the equation ``q(b) = (3)29``.
+For the update, we need the new value of ``q``, the quotient in the equation ``q(b) = (3) * 29``.
 
 The new values of ``x`` and ``y`` are:
 
-::
+.. code-block:: python
+
     x = y
-    y = x - yq
+    y = x - y * q
     
 where ``x`` in the second equation is the old value.  We need a temporary variable to hold this value.
 
@@ -107,11 +106,13 @@ Here is the code for the inner loop from my version:
 
 For the first step, the equation is:
 
-::
+.. code-block:: python
 
-    1 =  29 - (2)14
+    1 =  29 - (2) * 14
 
 so the values we need for ``x`` and ``y`` are:
+
+.. code-block:: python
 
     x = 1
     y = -q
@@ -171,32 +172,32 @@ Forward code
 
 The run for ``a = 231`` and ``b = 130`` had this data:
 
-::
+.. code-block:: python
 
-    101 = 231 - (1)130
-     29 = 130 - (1)101
-     14 = 101 - (3)29
-      1 =  29 - (2)14
-      0 =  14 - (1)14
+    101 = 231 - (1 * 130
+     29 = 130 - (1) * 101
+     14 = 101 - (3) * 29
+      1 =  29 - (2) * 14
+      0 =  14 - (1) * 14
 
 and these steps:
 
-::
+.. code-block:: python
 
-    101 = 231 - (1)130 
+    101 = 231 - (1) * 130 
         = a - b
 
-    29 = 130 - (1)101
-       = b - (1)(a - b)
-       = (-1)a + 2b
+    29 = 130 - (1) * 101
+       = b - (1) * (a - b)
+       = (-1 * a + 2 * b
 
-    14 = 101 - (3)29
-       = (a - b) - (3)[(-1)a + (2)b]
-       = 4a - 7b
+    14 = 101 - (3) * 29
+       = (a - b) - (3)[(-1) * a + (2) * b]
+       = 4 * a - 7 * b
 
-    1 = 29 + (-2)14
-      = (-1)a + 2b - (2)[4a - 7b]
-      = -9a + 16b
+    1 = 29 + (-2) * 14
+      = (-1) * a + (2) * b - (2) * [(4) * a - (7) * b]
+      = (-9) * a + (16) * b
 
 After noodling around for a bit, here is the pseudocode I came up with.  We need to retain values from two rounds back, stored in the variables ``s`` and ``t``.
 
@@ -214,22 +215,22 @@ After noodling around for a bit, here is the pseudocode I came up with.  We need
     round 1
     q = 1
     tmp = x,y = 1,-1
-    x = s - qx = 0 - 1 = -1
-    y = t - qy = 1 - (1)-1 = 2
+    x = s - q*x = 0 - 1 = -1
+    y = t - q*y = 1 - (1)-1 = 2
     s, t = tmp = 1,-1
     
     round 2
     q = 3
     tmp = x,y = -1,2
-    x = s - qx = 1 - 3(-1) = 4
-    y = t - qy = -1 - (3)2 = -7
+    x = s - q*x = 1 - 3(-1) = 4
+    y = t - q*y = -1 - (3)2 = -7
     s, t = tmp = -1,2
     
     round 3
     q = 2
     tmp = x,y = 4,-7
-    x = s - qx = -1 - 2(4) = -9
-    y = t - qy = 2 - (2)(-7) = 16
+    x = s - q*x = -1 - 2(4) = -9
+    y = t - q*y = 2 - (2)(-7) = 16
     s, t = tmp = 4,-7
     
     y is the inverse

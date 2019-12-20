@@ -1,4 +1,4 @@
-.. _part3/formats:
+.. _part4/formats:
 
 ###############
 RSA key formats

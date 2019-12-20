@@ -1,4 +1,4 @@
-.. _part2/math:
+.. _part/3math:
 
 ################
 Math of RSA keys
@@ -43,18 +43,6 @@ If you paste the lines above into the Python interpreter, you should be able to 
 >>>
 
 This means we can securely encode not more than about 62 bits. 
-
-A note on notation:  standard mathematics uses these two symbols for multiplication and exponentiation:
-
-.. math::
-
-    a \times b
-
-.. math::
-
-    a^e
-
-We'll be using Python a lot, so we'll use the Python notation.  Multiplication is ``a * b`` and exponentiation is ``a ** e``.  The remainder from division, or modulus operator, is ``a % b``.
 
 **Phi**
 
@@ -109,13 +97,13 @@ Actually, in practice, there is little variation in *e*.  It is typically the sa
 
 https://www.crypto101.io
 
-*e* is either 65537 or 3, and this is because there are very few binary ``1``'s in these numbers (only two single digits ``1``), and as a result the exponentiation which we will compute *a lot*
+*e* is either 65537 or 3, and this is because there are very few binary ``1``'s in these numbers (only two single digits ``1``), and as a result the exponentiation
 
 ``m**e``
 
 is much more efficient.
 
-65537 in binary is ``10000 0000 0000 0001``.  Thus to obtain ``m^e``, just left-shift *m* by 16 and add that to the original value of *m* that we started with. 
+65537 in binary is ``10000 0000 0000 0001``.  Thus to obtain ``m**e``, just left-shift *m* by 16 and add that to the original value of *m* that we started with. 
 
 The private key consists of *n* plus another number *d* which is computed from phi and so, as we said, requires knowledge of *p* and *q*. 
 
@@ -127,7 +115,7 @@ The encryption function we will use is
 
 .. math::
 
-    c = m^e mod \ n
+    c = m^e mod n
 
 .. code-block:: python
 
@@ -163,29 +151,29 @@ The private key is (*d*, *n*), although just the *d* part is actually secret. Fi
 
 What this means is that we want *d* such that
 
-``d × e = 1 (mod phi(n))``
+``d * e = 1 % phi(n)``
 
 Substituting the known values for *e* and *phi(n)*
 
-``d × 65537 = 1 (mod 944871834912248880)``
+``d * 65537 = 1 % 944871834912248880``
 
 Without worrying about the details, the method for doing this is the extended Euclidean algorithm for greatest common divisor.  Given two numbers *a* and *b*, the egcd gives us *x* and *y* such that
 
 .. math::
 
-    ax + my = gcd(a,m)
+    a*x + m*y = gcd(a,m)
 
 So if the gcd is equal to 1 (and *e* and *phi* have been chosen with this in mind), then 
 
 .. math::
 
-    ax - 1 = (-y)m
+    a*x - 1 = (-y)*m
 
 that is,
 
 .. math::
 
-    ax = 1 \ (mod \ m)
+    a*x = 1 mod m
 
 Thus, *x* is the multiplicative inverse of *a*, mod *m*.
 

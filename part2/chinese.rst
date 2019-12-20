@@ -1,10 +1,8 @@
-.. _part2/chinese:
+#########################
+Chinese Remainder Theorem
+#########################
 
-###
-CRT
-###
-
-The **Chinese** Remainder Theorem.
+Also called:  CRT
 
 .. image:: /_static/shapes.png
    :scale: 60 %
@@ -41,9 +39,9 @@ Suppose *x* has the set of remainders with those factors:
 
 ::
 
-    x = a mod p
-    x = b mod q
-    x = c mod r
+    x = a % p
+    x = b % q
+    x = c % r
 
 Then this tuple ``(a,b,c)`` is unique to *x*.
 
@@ -55,7 +53,7 @@ Suppose N = 60, so
 
 ::
 
-    30 = 2 x 3 x 5
+    30 = 2 * 3 * 5
 
 Make a table of remainders:
 
@@ -84,4 +82,83 @@ This is also true if the factors are not prime but simply co-prime:
        16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
     5:  1  2  3  4  0  1  2  3  4  0  1  2  3  4  0
     6:  4  5  0  1  2  3  4  5  0  1  2  3  4  5  0
+
+------------------
+Solving the system
+------------------
+
+I picked one column at random from above.  Consider the following table of remainders (congruences):
+
+::  
+
+    x := 1 (mod 2)
+    x := 1 (mod 3)
+    x := 3 (mod 5)
+
+The CRT says that this tuple uniquely determines ``x``.  
+
+We can actually solve the system for ``x``.
+
+https://brilliant.org/wiki/chinese-remainder-theorem/
+
+
+Start with the largest modulus eqn(3).  Re-write it as: 
+
+::
+
+    x = 5j + 3
+
+For some integer ``j``.  
+
+Next, substitute into eqn(2):
+
+::
+
+    5j + 3 = 1 (mod 3)
+
+Solve for ``j``:
+
+::
+
+    5j = 1 (mod 3)
+    2j = 1 (mod 3)
+    j = 2 (mod 3)
+
+Rewrite this as a congruence relation:
+
+::
+
+    j = 3k + 2
+
+for some integer ``k``.  
+
+Substitute into the equation we had above for ``j``:
+
+::
+
+    x = 5j + 3
+    x = 5(3k + 2)
+    x = 15k + 13
+
+Finally, substitute into eqn(1) and solve for ``k``
+
+::
+
+    15k + 13 = 1 (mod 2)
+    15k = -12 = 0 (mod 2)
+    k = 0 (mod 2)
+
+which means that
+
+::
+
+    k = 2m
+
+for some m.  And then
+
+::
+
+    x = 15k + 13
+    x = 15(2m) + 13
+    x = 13 mod 30
 

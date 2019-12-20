@@ -10,29 +10,29 @@ We pick a public exponent *e*, which is co-prime to *phi(n)*, and the usual choi
 
 We must also find *d* such that it is the multiplicative modular inverse of *e*:
 
-.. math::
+.. code-block:: python
 
-    d = e^{-1} \ mod \ phi(n)
+    d = e^{-1} % phi(n)
 
 This is done using the extended Euclidean algorithm for gcd (greatest common divisor).  The above equation is equivalent to:
 
-.. math::
+.. code-block:: python
 
-    e \cdot d = 1 \ mod \ phi(n)
+    e \cdot d = 1 % phi(n)
 
 With these definitions, it can be shown that
 
-.. math::
+.. code-block:: python
 
-    (m^e)^d = (m^d)^e = m \ mod \ n
+    (m^e)^d = (m^d)^e = m % n
 
 This is the basis of asymmetric encryption and decryption.
 
 It makes life easy if *e* has very few binary ones, which explains the choice we made above.  However, *d* is determined from *e* and *phi(n)*, and computing
 
-.. math::
+.. code-block:: python
 
-   x^d \ mod \ n
+   x^d % n
 
 is hard.  (``x`` is either the plaintext message or its encryption with the public key).
 
@@ -46,51 +46,51 @@ Some smart guy figured out that, not only is the result uniquely identified by t
 
 So, just as with ``phi(n)``, we calculate the multiplicative modular inverse of *e* with *(p-1)* and *(q-1)*.  These are called 
 
-.. math::
+.. code-block:: python
 
-    dP = e^{-1} \ mod \ (p-1)
+    dP = e^{-1} % (p-1)
 
-.. math::
+.. code-block:: python
 
-    dQ = e^{-1} \ mod \ (q-1)
+    dQ = e^{-1} % (q-1)
 
 Note that
 
-.. math::
+.. code-block:: python
 
-    dP \cdot e = 1 \ mod \ (p-1)
+    dP \cdot e = 1 % (p-1)
 
-.. math::
+.. code-block:: python
 
-    dQ \cdot e = 1 \ mod \ (e-1)
+    dQ \cdot e = 1 % (e-1)
 
 We also need the inverse of *q* with respect to *p*
 
-.. math::
+.. code-block:: python
 
-    qInv = q^{-1} \ mod \ p
+    qInv = q^{-1} % p
 
 To do the calculation, first find
 
-.. math::
+.. code-block:: python
 
-    x_1 = x^{dP} \ mod \ p
+    x_1 = x^{dP} % p
 
-.. math::
+.. code-block:: python
 
-    x_2 = x^{dQ} \ mod \ q
+    x_2 = x^{dQ} % q
 
 Then
 
-.. math::
+.. code-block:: python
 
     x = x_2 + h \cdot q
 
 where
 
-.. math::
+.. code-block:: python
 
-    h = (x_1 - x_2) \cdot qInv \ mod \ p
+    h = (x_1 - x_2) \cdot qInv % p
 
 -------
 Example
@@ -102,7 +102,7 @@ https://www.di-mgt.com.au/crt_rsa.html
 
 Suppose
 
-::
+.. code-block:: python
 
     p = 137
     q = 131
@@ -112,43 +112,43 @@ Suppose
 
 Compute *d* using ``mod.py`` (and then just check it):
 
-::
+.. code-block:: python
 
     d = 11787
 
 So then
 
-.. math::
+.. code-block:: python
 
-    dP = e^{-1} \ mod \ (p-1)
+    dP = e^{-1} % (p-1)
     
-.. math::
+.. code-block:: python
 
-    dP = e^{-1} \ mod \ (q-1)
+    dP = e^{-1} % (q-1)
     
 
-::
+.. code-block:: python
 
     dP = 91
     dQ = 87
 
 and finally
 
-.. math::
+.. code-block:: python
 
-    qInv = q^{-1} \ mod \ p
+    qInv = q^{-1} % p
 
-::
+.. code-block:: python
 
     qInv = 114
 
 Having chosen a message with value ``m = 513``, to encrypt:
 
-.. math::
+.. code-block:: python
 
-    c = (m^e) \ mod \ n
+    c = (m^e) % n
 
-::
+.. code-block:: python
 
     m = 513
     c = 513^3 mod 17947 = 8363
@@ -159,50 +159,50 @@ Calculation
 
 Decrypt by
 
-::
+.. code-block:: python
 
-    8363^11787 mod 17947 = 513
+    8363^11787 % 17947 = 513
 
 The intermediate exponentiation result ``8363^11787`` has ``46233`` digits.  It goes pretty quickly on my computer, but still..
 
 
 The shortcut is as follows:
 
-.. math::
+.. code-block:: python
 
-    m_1 = c^{dP} \ mod p
+    m_1 = c^{dP} % p
 
-::
+.. code-block:: python
 
-    m1 = 8363^91 \ mod 137 = 102
+    m1 = 8363^91 % 137 = 102
 
 Here, the exponentiation result has 357 digits.
 
-.. math::
+.. code-block:: python
 
-    m_2 = c^{dQ} \ mod q
+    m_2 = c^{dQ} % q
 
-::
+.. code-block:: python
 
-    m2 = 8363^87 \ mod 131 = 120
+    m2 = 8363^87 % 131 = 120
 
 Since ``m2 > m1`` the difference is negative, therefore add an extra ``p``:
 
-::
+.. code-block:: python
 
     m1 - m2 = -18;  + 137 = 119
 
 Multiply by ``qInv``:
 
-:: 
+.. code-block:: python 
 
-    h = qInv.(m1-m2) mod p = 114 x 119 mod 137 = 3
+    h = qInv * (m1-m2) % p = 114 * 119 % 137 = 3
 
 So the result is
 
-::
+.. code-block:: python
 
-    m = m2 + h.q = 120 + 3(131) = 513
+    m = m2 + h * q = 120 + (3) * 131 = 513
 
 It works!
 

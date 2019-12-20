@@ -13,7 +13,7 @@ http://en.wikipedia.org/wiki/Caesar_cipher
     If he had anything confidential to say, he wrote it in cipher, that is, by so changing the order of the letters of the alphabet, that not a word could be made out. If anyone wishes to decipher these, and get at their meaning, he must substitute the fourth letter of the alphabet, namely D, for A, and so with the others. --Suetonius
 
 .. image:: /_static/Caesar3.png
-   :scale: 50 %
+   :scale: 40 %
 
 
 Here is a quick and dirty Python script to do this:
@@ -41,7 +41,7 @@ http://www.amazon.com/Code-Book-Science-Secrecy-Cryptography/dp/0385495323
 writes about the Vigenere cipher.  Here is a screenshot
 
 .. image:: /_static/vigenere.png
-   :scale: 100 %
+   :scale: 75 %
 
 For each letter of a key, one makes a dictionary to encode the alphabet.  For messages longer than the key, it repeats.
 

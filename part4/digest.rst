@@ -1,4 +1,4 @@
-.. _part3/digest:
+.. _part4/digest:
 
 ####################
 OpenSSH fingerprints

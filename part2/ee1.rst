@@ -1,5 +1,3 @@
-.. _part2/ee1:
-
 ###########
 Extended EA
 ###########
@@ -51,7 +49,7 @@ Extended Euclidean algorithm
 
 I want to demonstrate the EEA but first I'd like to find a pair of numbers for which the gcd is equal to ``1`` and yet takes a few steps, starting from smallish numbers.
 
-Let's try ``231 = 3 x 7 x 11``, and ``130 = 2 x 5 x 13``.  Run the Euclidean algorithm as described in the previous chapter.  Here is the code again:
+Let's try ``231 = 3 * 7 * 11``, and ``130 = 2 * 5 * 13``.  Run the Euclidean algorithm as described in the previous chapter.  Here is the code again:
 
 .. code-block:: python
 
@@ -76,7 +74,7 @@ which gives:
 
 That looks reasonable.  The ``gcd`` is the value of ``b`` when ``r == 0``, that is, ``1``.
 
-Now, rearrange the data to be equations of the form ``r = a - qb``.
+Now, rearrange the data to be equations of the form ``r = a - q * b``.
 
 ::
 
@@ -88,9 +86,9 @@ Now, rearrange the data to be equations of the form ``r = a - qb``.
 
 We will use this data to write
 
-::
+.. code-block:: python
 
-    xa - yb = 1
+    x * a - y * b = 1
     
 --------
 Backward
@@ -98,23 +96,23 @@ Backward
 
 There are two related methods:  forward and backward.  The backward method starts with the next to last equation:
 
-::
+.. code-block:: python
 
-    1 = 29 + (-2)14
+    1 = 29 + (-2) * 14
 
 Now, substitute for ``14`` from the previous equation
 
-::
+.. code-block:: python
 
-    1 = 29 + (-2)[101 - 3(29)]
-    1 = (-2)101 + (7)29
+    1 = 29 + (-2) * [101 - 3 * (29)]
+    1 = (-2) * 101 + (7) * 29
 
 Next, substitute for ``29``:
 
-::
+.. code-block:: python
 
-    1 = -(2)101 + (7)[130 - (1)101]
-    1 = (7)130 + (-9)101
+    1 = -(2) * 101 + (7) * [130 - (1) * 101]
+    1 = (7) * 130 + (-9) * 101
     
 At each stage, we can confirm that the arithmetic is correct.  The equality is maintained.
 
@@ -122,22 +120,24 @@ Always the larger number has two terms to be combined.  And the signs stay with 
 
 Then finally, substitute for ``101``
 
-::
+.. code-block:: python
 
-    1 = (7)130 + (-9)[231 - (1)130]
-    1 = (-9)231 + 16(130)  
+    1 = (7) * 130 + (-9) * [231 - (1) * 130]
+    1 = (-9) * 231 + (16) * 130
 
 We have expressed the gcd as a *linear combination* of ``a`` and ``b``.  The form is
 
-    gcd = 1 = xa + yb
-    1 = (-9)231 + 16(130)
-    16(130) = (9)231 + 1
+.. code-block:: python
+
+    gcd = 1 = x * a + y * b
+    1 = (-9) * 231 + (16) * 130
+    (16) * 130) = (9) * 231 + 1
 
 Now, realize that if we do mod ``231`` on both sides we have:
 
-::
+.. code-block:: python
 
-    16(130) mod 231 = 1
+    (16) * 130 % 231 = 1
     
 Thus, ``16`` and ``130`` are modular multiplicative inverses mod ``231``.  We can check this easily:
 
@@ -146,7 +146,7 @@ Thus, ``16`` and ``130`` are modular multiplicative inverses mod ``231``.  We ca
 1
 
 
-Here we used four equations and `b` ended up with a positive factor.  An odd number of equations would give a negative factor ``y`` in ``yb``.  In that case we take take the modulus of ``y`` by adding ``a`` to it.
+Here we used four equations and `b` ended up with a positive factor.  An odd number of equations would give a negative factor ``y`` in ``y * b``.  In that case we take take the modulus of ``y`` by adding ``a`` to it.
 
 -------
 Forward
@@ -154,47 +154,47 @@ Forward
 
 Here are the equations again for reference.
 
-::
+.. code-block:: python
 
-    101 = 231 - (1)130
-     29 = 130 - (1)101
-     14 = 101 - (3)29
-      1 =  29 - (2)14
-      0 =  14 - (1)14
+    101 = 231 - (1) * 130
+     29 = 130 - (1) * 101
+     14 = 101 - (3) * 29
+      1 =  29 - (2) * 14
+      0 =  14 - (1) * 14
 
 
 In thinking about this, forget about the fact that the algorithm is constantly switching ``a`` for ``b`` and ``b`` for ``r``.  Here, ``a`` and ``b`` retain their initial values.
 
 Start with the first equation:
 
-::
+.. code-block:: python
 
-    101 = 231 - (1)130 
+    101 = 231 - (1) * 130 
         = a - b
 
 The next line is
 
-::
+.. code-block:: python
 
-    29 = 130 - (1)101
-       = b + (-1)(a - b)
-       = (-1)a + 2b
+    29 = 130 - (1) * 101
+       = b + (-1) * (a - b)
+       = (-1) * a + (2) * b
 
 And the next:
 
-::
+.. code-block:: python
 
-    14 = 101 - (3)29
-       = (a - b) + (-3) [(-1)a + (2)b]
-       = 4a - 7b
+    14 = 101 - (3) * 29
+       = (a - b) + (-3) * [(-1)a + (2) * b]
+       = 4 * a - 7 * b
 
 Finally,
 
-::
+.. code-block:: python
 
-    1 = 29 + (-2)14
-      = (-1)a + 2b + (-2)[4a - 7b]
-      = -9a + 16b
+    1 = 29 + (-2) * 14
+      = (-1) * a + 2 * b + (-2) * [4 * a - 7 * b]
+      = (-9) * a + (16) * b
 
 These are the same values for ``x`` and ``y`` that we had from the backwards method.
 
