@@ -11,6 +11,8 @@ Contents:
    fta
    symbols
    modular
+   bezout
+   factorization
    ea
    ee1
    ee2

@@ -12,6 +12,4 @@ Contents:
    xor
    bytes
    base64
-   enigma1
-   enigma2
    

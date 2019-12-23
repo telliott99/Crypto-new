@@ -6,9 +6,7 @@ History
 
 **Caesar Cipher**
 
-Julius Caesar is said to have used a simple substitution cipher as an encryption system.  
-
-http://en.wikipedia.org/wiki/Caesar_cipher
+Julius Caesar is said to have used a simple substitution cipher as an encryption system (`wikipedia <http://en.wikipedia.org/wiki/Caesar_cipher>`_).
 
     If he had anything confidential to say, he wrote it in cipher, that is, by so changing the order of the letters of the alphabet, that not a word could be made out. If anyone wishes to decipher these, and get at their meaning, he must substitute the fourth letter of the alphabet, namely D, for A, and so with the others. --Suetonius
 
@@ -34,11 +32,7 @@ and here it is in action:
     HI BRUTUS
     >
 
-Simon Singh, in *The Code Book*
-
-http://www.amazon.com/Code-Book-Science-Secrecy-Cryptography/dp/0385495323
-
-writes about the Vigenere cipher.  Here is a screenshot
+Simon Singh, in *The Code Book* (`Amazon <http://www.amazon.com/Code-Book-Science-Secrecy-Cryptography/dp/0385495323>`_) writes about the Vigenere cipher.  Here is a screenshot
 
 .. image:: /_static/vigenere.png
    :scale: 75 %

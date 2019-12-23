@@ -1,0 +1,27 @@
+titles
+order of symbols:  #, *, =, -, ^, "
+
+blockquotes:
+simply indent the paragraph
+
+anchors
+custom, above the title or heading:
+.. _RST Overview:
+
+use it as follows:
+:ref:`RST Overview`
+
+:ref:`section link<Cross-Reference>
+
+external links:
+`CNN <http://cnn.com>`_
+
+inline math
+Since Pythagoras, we know that :math:`a^2 + b^2 = c^2`.
+
+.. math::
+Directive for displayed math (math that takes the whole line for itself).
+
+The directive supports multiple equations, which should be separated by a blank line:
+
+See about \\ at end of math lines

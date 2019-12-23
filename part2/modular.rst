@@ -2,39 +2,127 @@
 Modular arithmetic
 ##################
 
-Without getting too deep into the weeds, we take a quick look at multiplication with some modulus, *n*.
+Modular arithmetic (sometimes called "clock" arithmetic) is very important in cryptography.
 
-We will prove the following
+As Hardy `says <https://projecteuclid.org/download/pdf_1/euclid.bams/1183493592>`_ (section I.3).
 
-.. code-block:: python
+    The absolute values of numbers are comparatively unimportant; we want to know what time it is, not how many minutes have passed since the creation.
 
-    (a * b) % n = (a % n) * (b % n) % n
+Further
 
-If either *a* or *b* is less than or equal to *n*, the result is trivial, so we assume ``a > n`` and ``b > n``.
+    Two numbers *a* and *b* are **congruent** to modulus *m* if they leave the same remainder when divided by *m*
 
-Then
+Recall that all the numbers we deal with here are integers.  The above statement is equivalent to the following:
 
 .. math::
 
-    a = x*n + r_1
+    a = jm + r \\
 
-for some *x*.  A similar relation is true for *b* so
+    b = km + r
+
+so then
+
+.. math::
+
+    a - b = m(j - k)
+
+We see that :math:`m|(j-k)` and we write 
+
+.. math::
+
+    a := b \ mod \ m \\
+
+or
 
 .. code-block:: python
 
-    (a * b) % n = (x * n + r_1) * (y * n + r_2) % n
+    a % m = b % m
 
-Of the four terms resulting on the right-hand side, three are zero (``% n``) and the other one is
+or sometimes, an equals sign with 3 bars across, where that symbol and :math:`:=` both mean "equal by definition".
 
-.. code-block:: python
+Invariably, if we are considering the result for an expression on the left-hand side mod *n*, we also want to evaluate the right-hand side mod *n*.  In that case, we will simply end the paragraph preceeding with the directive (mod *n*).
 
-    r_1 * r_2 % n = (a % n) * (b % n) % n
+--------
+Addition
+--------
 
-which is what we wanted to prove.
+We will prove that (mod *n*):
 
-The practical result is that we can carry out exponentiation and modulus operations in interleaved fashion.
+.. math::
 
-Namely, multiply *m* by itself.  If *m > n*, replace *m* by the remainder ``% n``.  Repeat as many times as the exponent dictates.
+   a + b = (a \ mod \ n) + (b \ mod \ n)
+
+We assume that ``a > n`` and ``b > n``, because otherwise the results are trivial.
+
+Suppose that
+
+.. math::
+
+    a \ mod \ n = r_1 \\
+
+    a = jn + r_1
+
+and 
+
+.. math::
+
+    b \ mod \ n = r_2 \\
+
+    b = kn + r_2
+
+We want to evaluate (mod *n*):
+
+.. math::
+
+   a + b = (a \ mod \ n) + (b \ mod \ n)
+
+The left-hand side is:
+
+.. math::
+
+    jn + r_1 + kn + r_2 \\
+
+    = (j + k)n + r_1 + r_2
+
+Evaluated (mod *n*):
+
+.. math::
+
+    = r_1 + r_2
+
+which is equal to the right-hand side, evaluated mod *n*, before the addition operation.
+
+Allow for the possibility that :math:`r_1 + r_2 > n` and we'll need another application of mod *n*.
+
+--------------
+Multiplication
+--------------
+
+That is also true of multiplication.  Consider:
+
+.. math::
+
+    ab = (a \ mod \ n)(b \ mod \ n)
+
+For *a* and *b* as defined above, the left-hand side is:
+
+.. math::
+
+    ab = (jn + r_1) (kn + r_2) \\
+
+    = jkn^2 + jnr_2 + knr_1 + r_1 r_2
+
+Evaluated (mod *n*)
+
+.. math::
+
+     = r_1 r_2 = (a \ mod \ n)(b \ mod \ n)
+
+Allow for the possibility that :math:`r_1 r_2 > n` and we'll need another application of mod *n*.
+
+The practical result of all this is that we can carry out exponentiation and modulus operations in interleaved fashion.
+
+Namely, to evaluate :math:`m^3`, multiply *m* by itself a total of *e* times, starting with :math:`m \cdot m`.  Whenever the intermediate product exceeds *n*, replace it by the remainder ``% n``.  Repeat as many times as the exponent dictates.
 
 In Python:
 
@@ -58,14 +146,20 @@ and
 
     2 a \ mod \ p = (2 \ mod \ p) \cdot (a \ mod \ p)
 
-Hence, if 
+Hence
+
+------------
+Cancellation
+------------
+
+If :math:`ra = sa` mod *n*, then :math:`r = s` mod *n*.
+
+-----
+Proof
+-----
 
 .. math::
 
-    m \cdot a = n \cdot a \ mod \ p
+     ra \ mod \ n = (r \mod n)(a \ mod \ n)
 
-it follows that 
-
-.. math::
-
-    m = n \ mod \ p 
+The same is true for *rs*, so the common term cancels.

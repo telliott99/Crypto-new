@@ -6,13 +6,15 @@ Fundamental Theorem of Arithmetic
 Euclid's lemma
 --------------
 
-Every natural number *n*, every positive integer greater than *1*, is either prime or it is the product of two smaller natural numbers *a* and *b*
+Every natural number *n > 1*, every positive integer greater than *1*, is either prime or it is the product of two smaller natural numbers *a* and *b*
 
 But the same is true of *a* and *b* in turn.
 
 Therefore, every number is the product of the prime factors of *a* times the prime factors of *b*.  
 
-If a given prime *p* divides *n* then either *p* divides *a* or *p* divides *b* or both.
+Supoose a given prime *p* divides :math:`n = ab`, i.e. :math:`p|n`.
+
+Then either :math:`p|a` or :math:`p|b`, (or both).
 
 -----
 Proof
@@ -20,7 +22,9 @@ Proof
 
 The proof is by induction.  
 
-Assume the lemma is true for all numbers between *1* and *n* (e.g. it is certainly true for :math:`n < 13`).  If *n* is prime there is nothing to prove and we move to *n + 1*.  
+Assume the lemma is true for all numbers between *1* and *n*.  It is certainly true for :math:`n < 31`), because we can check each case.
+
+If *n* is prime there is nothing to prove and we move to *n + 1*.  
 
 If *n* is not prime, then there exist integers *a* and *b* (with :math:`1 < a \le b < n`) such that :math:`n = a \times b`.
 
@@ -58,7 +62,7 @@ Hardy
 
 Hardy and Wright (*Theory of Numbers*, sect. 2:11) have a second proof, which is given here (almost) verbatim:
 
-Let us call numbers which can be factored into primes in more than one way, *abnormal*, and let *n* be the smallest abnormal number.
+    Let us call numbers which can be factored into primes in more than one way, *abnormal*, and let *n* be the smallest abnormal number.
 
 **Different factorization**
 
@@ -88,7 +92,7 @@ Similarly :math:`q_1 | N`.  Hence :math:`p_1` and :math:`q_1` both appear in the
 
 From this it follows that :math:`p_1 q_1 | n` and hence :math:`q_1 = n/p_1`.  But :math:`n/p_1` is less than *n* and has the unique prime factorization :math:`p_2 p_3 \dots`.
 
-Since :math:`q_1` is not a *p*, this is impossible.  Hence there cannot be any abnormal numbers and this is the fundamental theorem.
+Since :math:`q_1` is not a *p*, this is impossible.  Hence there cannot be any abnormal numbers, and this is the fundamental theorem.
 
 
 

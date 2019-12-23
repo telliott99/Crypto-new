@@ -8,20 +8,28 @@ Encryption using XOR
 
 The XOR (exclusive or, xor) operation takes two bits and generates a third bit using the rules:
 
-    * 0 ^ 0 = 1 ^ 1 = 0
-    * 0 ^ 1 = 1 ^ 0 = 1
+    - ``0 ^ 0 = 0``
+    - ``1 ^ 1 = 0``
+
+    - ``0 ^ 1 = 1``
+    - ``1 ^ 0 = 1``
 
 It can also be applied to streams of bytes like so:
 
-    * p = 0101
-    * k = 0011
-    * c = 0110
+    - ``p = 0101``
+    - ``k = 0011``
+    - ``c = 0110``
+
+(``p`` stands for **plaintext** and ``c`` for **ciphertext**, ``k`` is the **key**).
     
 A fundamental result is that XOR is symmetric:
 
-    p ^ k = c ^ k
+::
 
-If we take our message to be a string of ASCII characters like 'hello world', we can encrypt the string by computing the XOR of the bytes with a string of random bytes as the **key**.
+    p ^ k = c
+    c ^ k = p
+
+If we take our message to be a string of ASCII characters like 'hello world', we can encrypt the string by computing the XOR of the bytes with a string of random bytes as the key.
 
 The resulting ciphertext will consist of random bytes that can be de-ciphered if the key is known, by simply repeating the XOR operation.
 
@@ -92,6 +100,6 @@ And then to factor for powers of 2 quickly.
 
 And so on.
 
-The result of this introductory material is devoted to solving the other problems, starting with key exchange.
+The rest of this introductory material is devoted to solving the other problems, starting with key exchange.
 
 

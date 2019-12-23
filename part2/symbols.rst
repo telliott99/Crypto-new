@@ -2,9 +2,11 @@
 Symbols
 #######
 
-We're using Python quite a bit in this document.  
+Although the Sphinx documentation is nice, it has a few quirks.  Python has its own symbols for mathematical functions, as given below.
 
-Although the Sphinx documentation is nice, it has a few quirks.  For the most part, we will adopt the symbols for mathematical functions used in Python, as given below.  Occasionally we want to typeset mathematics (especially for subscripts like :math:`p_1`), and in that case we may use more standard math symbols.
+Sometimes we will typeset mathematics to make the output prettier (especially for subscripts like :math:`p_1`), and in that case we may use more standard math symbols.
+
+On the other hand, the mod operator ``%`` is not allowed outside of Python syntax.
 
 --------------
 Multiplication
@@ -14,9 +16,11 @@ In typeset math (say, LaTeX) we may write
 
 .. math::
 
+    a \cdot b \\
+
     a \times b
 
-or in pseudo-code ``a x b``.  Here we will mainly use the ``*`` operator, as in:
+or in pseudo-code ``a x b``.  Python uses the ``*`` operator:
 
 .. code-block::  python
 
@@ -32,7 +36,7 @@ In typeset math we may write
 
     m^e
 
-or in pseudo-code ``m^e``.  Here we will use the ``**`` operator, as in:
+or in pseudo-code ``m^e``.  Python uses the ``**`` operator, as in:
 
 .. code-block::  python
 
@@ -42,7 +46,19 @@ or in pseudo-code ``m^e``.  Here we will use the ``**`` operator, as in:
 Modulus
 -------
 
-Rather than use the word mod, write the symbol ``%``.
+For math markup, we use the work ``mod``, and for Python write the symbol ``%``.
+
+-------
+Divides
+-------
+
+If there exists an integer *c* such that :math:`y = cx`, we denote this property by :math:`x|y`.  We say that *x* divides *y*.
+
+Equivalently, the result of the mod operation is zero: 
+
+.. code-block:: python
+
+    y % x = 0
 
 ---
 Phi
@@ -50,7 +66,10 @@ Phi
 
 Euler's totient function is symbolized by the Greek letter phi.
 
-That symbol is easy to find in Unicode, and modern Python will accept it, however LaTeX will not.  Since I want to produce pdf output as well as html, we must stick with ``phi``.
+.. image:: /_static/phi.png
+   :scale: 20 %
+
+That symbol is easy to find in Unicode, and modern Python allows Unicode, however LaTeX does not.  Since I want to produce pdf output as well as html, we must stick with ``phi``.
 
 ----------------
 Set intersection
@@ -58,14 +77,4 @@ Set intersection
 
 For the same reason, lack of an appropriate symbol, I have adopted ``^`` as the symbol for set intersection, and ``U`` as the symbol for set union.  
 
-We will also use ``^`` in Python as the symbol for XOR, exclusive or.
-
---------------
-Evenly divides
---------------
-
-In the previous chapter I used the notation :math:`n | p`, which should be understood to mean that *p* *evenly divides* *n* with no remainder.  Equivalently, the result of the mod operation :math:`n % p` is zero.
-
-
-
-
+``^`` is used in Python as the symbol for XOR, exclusive or.

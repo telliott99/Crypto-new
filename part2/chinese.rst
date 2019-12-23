@@ -2,7 +2,46 @@
 Chinese Remainder Theorem
 #########################
 
-Also called:  CRT
+This theorem is sometimes abbreviated as the CRT.
+
+    There are certain things whose number is unknown. Repeatedly divided by 3, the remainder is 2; by 5 the remainder is 3; and by 7 the remainder is 2. What will be the number?  -- Sun Tsu Suan-Ching
+
+(`link <https://www.cut-the-knot.org/blue/chinese.shtml>`_)
+
+Consider *n* and its prime factors (or even combinations of prime factors, as long as each value is coprime), then
+
+    the tuple of remainders from the modulus operation on *n* with its coprime factors is unique.
+
+Not only is the tuple unique, but 
+
+    it can be used to reconstruct the result of the modulus operation on *n*.
+    
+Therefore, that operation can be replaced by easier operations on each of the smaller factors.  This result is used to simplify some operations with RSA keys, as we'll see.
+
+Two examples:
+
+Let *n = 20* and consider the coprime factors *4* and *5*:
+
+::
+     
+    1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+           |       |       |       |       | 
+    1 2 3 0 1 2 3 0 1 2 3 0 1 2 3 0 1 2 3 0   mod 4
+             |         |         |         |
+    1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0   mod 5
+    
+For each number in the range ``[1..n]`` write the result mod *4* or *5* as a tuple:
+
+::
+
+    (1,1),(2,2),(3,3),(0,4),(1,0),
+    (2,1),(3,2),(0,3),(1,4),(2,0),
+    (3,1),(0,2),(1,3),(2,4),(3,0),
+    (0,1),(1,2),(2,3),(3,4),(0,0)
+
+Each one is unique.
+
+-----
 
 .. image:: /_static/shapes.png
    :scale: 60 %
@@ -99,8 +138,7 @@ The CRT says that this tuple uniquely determines ``x``.
 
 We can actually solve the system for ``x``.
 
-https://brilliant.org/wiki/chinese-remainder-theorem/
-
+Kind of spammy, but I found out (`how to do this <https://brilliant.org/wiki/chinese-remainder-theorem/>`_).
 
 Start with the largest modulus eqn(3).  Re-write it as: 
 
@@ -162,3 +200,19 @@ for some m.  And then
     x = 15(2m) + 13
     x = 13 mod 30
 
+------
+Riddle
+------
+
+The answer to the riddle is 
+
+>>> for i in range(106):
+...     t = (i,i%3,i%5,i%7)
+...     print(t)
+...     if t[1:] == (2,3,2):
+...         print('*')
+... 
+..
+(23, 2, 3, 2)
+*
+..

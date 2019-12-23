@@ -76,7 +76,7 @@ By the rule of modular multiplication this is equal to
 
     (a \ mod \ p)(2a \ mod \ p)(3a \ mod \ p) \ \dots \ ((p-1)a) \ mod \ p  
 
-Now suppose that any two terms were equal to another (mod *p*), say
+Now suppose that any two terms were equal to one another (mod *p*), say
 
 .. math::
 
@@ -88,7 +88,7 @@ Therefore these values
 
 .. math::
 
-    (a \ mod \ p)(a \ mod \ p)(a \ mod \ p) \dots ((p-1)a \ mod \ p)
+    (a \ mod \ p)(2a \ mod \ p)(3a \ mod \ p) \dots ((p-1)a \ mod \ p)
 
 are all distinct, and since there are *(p-1)* of them, they cycle through the same integers :math:`1..(p-1)` (though not necessarily in the same order).  
 
@@ -120,6 +120,8 @@ The requirement for *a* and *p* coprime arises because it ensures that the terms
 
 each appear only once. 
 
+On a side note, recall our earlier proof that :math:`(p-1)! = 1` mod *p*.
+
 --------
 Our goal
 --------
@@ -138,7 +140,7 @@ So with Euler's extension of Fermat's little theorem (substituting ``m`` for ``a
 
     m^{phi(n)} = 1 \ (mod \ n)
     
-Raise to the power ``k``:
+In this case, raising to the power ``k`` doesn't change the result:
 
 .. math::
 
